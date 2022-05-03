@@ -19,7 +19,7 @@ async function getTypeSuggestions() {
 	editorDocument = editor.document;
 
 	// create hover
-	vscode.languages.registerHoverProvider('javascript', {      // (?) "Type annotations can only be used in TypeScript files."
+	vscode.languages.registerHoverProvider('typescript', {
 		provideHover: async (document, position) => {
 			
 			// get word at current cursor position
@@ -45,7 +45,7 @@ async function getTypeSuggestions() {
 			var params = {input_string:in_str, word_index: word_in}
 
 			const fetch = require('node-fetch');
-			const response = await fetch('http://127.0.0.1:5000/suggest-types?' 
+			const response = await fetch('http://localhost:5000/suggest-types?' 
 				+ new URLSearchParams(params).toString());
 			const data = await response.json();
 			console.log(data);
