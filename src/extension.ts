@@ -1,9 +1,9 @@
 import * as vscode from 'vscode';
 
-
 var wordEnd: any;
 var editorDocument: vscode.TextDocument;
-var typeSuggestions = ["Type1", "Type2", "Type3", "Type4", "Type5"]; // init placeholders, updated w actual type suggestions below
+
+var typeSuggestions = ["Type1", "Type2", "Type3", "Type4", "Type5"]; // init placeholders, updated later
 
 async function getTypeSuggestions() {
 
@@ -53,14 +53,29 @@ async function getTypeSuggestions() {
 			typeSuggestions = data.type_suggestions;
 			console.log(typeSuggestions);
 
+			console.log(data.probabilities);
+			// process probabilities (round to 3 decimal places, percentage, toString)
+			var typeProbabilities: string[] = [];
+			for(const p of data.probabilities) {
+				var currProb = (Math.round((p + Number.EPSILON) * 1000)/10).toString() + "%";
+				typeProbabilities.push(currProb);
+				// note: general expression to round to 3 decimal(Math.round((p + Number.EPSILON) * 1000) / 1000) - changed denom to 10 above to make %
+			}
+			console.log(typeProbabilities);
+
 			// build hover MarkdownString with all five type suggestions   // TODO: add probabilities?
 			const markdownTypes = new vscode.MarkdownString();
 			markdownTypes.appendMarkdown('***Suggested Types:***\n\n');
-			markdownTypes.appendMarkdown('**'+typeSuggestions[0]+'** *........................press \`Shift\`+\`1\` to accept*\n\n');
-			markdownTypes.appendMarkdown('**'+typeSuggestions[1]+'** *........................press \`Shift\`+\`2\` to accept*\n\n');
-			markdownTypes.appendMarkdown('**'+typeSuggestions[2]+'** *........................press \`Shift\`+\`3\` to accept*\n\n');
-			markdownTypes.appendMarkdown('**'+typeSuggestions[3]+'** *........................press \`Shift\`+\`4\` to accept*\n\n');
-			markdownTypes.appendMarkdown('**'+typeSuggestions[4]+'** *........................press \`Shift\`+\`5\` to accept*\n\n');
+			// markdownTypes.appendMarkdown('**'+typeSuggestions[0]+'** *(prob)............press \`Shift\`+\`1\` to accept*\n\n');
+			// markdownTypes.appendMarkdown('**'+typeSuggestions[1]+'** *(prob)............press \`Shift\`+\`2\` to accept*\n\n');
+			// markdownTypes.appendMarkdown('**'+typeSuggestions[2]+'** *(prob)............press \`Shift\`+\`3\` to accept*\n\n');
+			// markdownTypes.appendMarkdown('**'+typeSuggestions[3]+'** *(prob)............press \`Shift\`+\`4\` to accept*\n\n');
+			// markdownTypes.appendMarkdown('**'+typeSuggestions[4]+'** *(prob)............press \`Shift\`+\`5\` to accept*\n\n');
+			markdownTypes.appendMarkdown('**'+typeSuggestions[0]+'** *('+typeProbabilities[0]+')............press \`Shift\`+\`1\` to accept*\n\n');
+			markdownTypes.appendMarkdown('**'+typeSuggestions[1]+'** *('+typeProbabilities[1]+')............press \`Shift\`+\`2\` to accept*\n\n');
+			markdownTypes.appendMarkdown('**'+typeSuggestions[2]+'** *('+typeProbabilities[2]+')............press \`Shift\`+\`3\` to accept*\n\n');
+			markdownTypes.appendMarkdown('**'+typeSuggestions[3]+'** *('+typeProbabilities[3]+')............press \`Shift\`+\`4\` to accept*\n\n');
+			markdownTypes.appendMarkdown('**'+typeSuggestions[4]+'** *('+typeProbabilities[4]+')............press \`Shift\`+\`5\` to accept*\n\n');
 
 			// display type suggestions and acceptance keystrokes in hover
 			return new vscode.Hover(markdownTypes);
