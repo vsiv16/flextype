@@ -191,7 +191,7 @@ function fast_linter(checker: ts.TypeChecker, sourceFile:ts.SourceFile, loc, wor
 				let symbol = checker.getSymbolAtLocation(node['name']);
 				if (symbol) {
 					const ty = checker.getTypeAtLocation(node);
-					const n = checker.typeToTypeNode(ty); //not sure why this says error on vscode...
+					const n = checker.typeToTypeNode(ty, undefined, undefined); //not sure why this says error on vscode...
 					typeCache = parseType(n);
 				}
 			}
