@@ -378,12 +378,8 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(vscode.commands.registerCommand('typescriptsuggestions.suggest-types', getTypeSuggestions));
 	context.subscriptions.push(vscode.commands.registerCommand('typescriptsuggestions.insert-type', insertType));
 
-	// create status bar item (needed?)
-	const item = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
-	item.text = "TypeScript Suggestions";
-	item.command = "typescriptsuggestions.suggest-types";
-	item.show();
-	context.subscriptions.push(item);
+	// hide extension activation cmd from cmd palette (so can't be activated more than once)
+	vscode.commands.executeCommand('setContext', 'myExtension.hideActivationCommand', true);
 }
 
 // called when extension is deactivated

@@ -1,6 +1,6 @@
 {
   "name": "typescriptsuggestions",
-  "displayName": "TypeScriptSuggestions",
+  "displayName": "TypeScript Suggestions",
   "description": "",
   "version": "0.0.1",
   "engines": {
@@ -29,6 +29,10 @@
         {
           "command": "typescriptsuggestions.insert-type",
           "when": "false"
+        },
+        {
+          "command": "typescriptsuggestions.suggest-types",
+          "when": "myExtension.hideActivationCommand == false"
         }
       ]
     },
