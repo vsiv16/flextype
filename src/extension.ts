@@ -156,6 +156,7 @@ function parseType(node: ts.TypeNode) {
 
 
 function incrementalCompile(dir:string): any {
+	console.log("doing inc compile");
 	const configPath = ts.findConfigFile(dir,
 	ts.sys.fileExists,
 	"tsconfig.json"
@@ -171,7 +172,12 @@ function incrementalCompile(dir:string): any {
 		});
 		return project;
 	}else {
+		// add vscode popup, gracefully
 		throw new Error("Could not find a valid 'tsconfig.json'.");
+		// print("CONFIG ERROR") ---> make vscode error popup
+		// options = {noEmitOnError: true,target: ts.ScriptTarget.ES5,module: ts.ModuleKind.CommonJS, incremental: true}
+		
+		// let result = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS }});
 	}
 }
 function fast_linter(checker: ts.TypeChecker, sourceFile:ts.SourceFile, loc, word){
@@ -237,11 +243,11 @@ async function getTypeSuggestions() {
 			console.log("WORD START: "+wordStart.character);
 			document_position = document.offsetAt(wordStart);
 			console.log("AST POS Location (approx): "+document_position);
-			// send http request, receive type suggestions from model server
 
 			let dir = vscode.workspace.workspaceFolders[0].uri.path ;
 			let currentFile = vscode.window.activeTextEditor.document.fileName;
 			project = incrementalCompile(dir);
+			console.log("back from inc compile");
 			program = project.getProgram();
 			var sourcefile = program.getSourceFile(currentFile);
 			let checker = program.getTypeChecker();
@@ -253,11 +259,8 @@ async function getTypeSuggestions() {
 			console.log("WORD INDEX:" +word_index);
 			// var in_str = editorDocument.lineAt(position).text; // passing in current line as input for now -- kevin we don't need this now that we have tokens!
 			
-			// var word_in: string = position.character.toString(); // we have word index now!!
-			//var params = {input_string:tokens.join(' '), word_index: word_index};
+			// send http request, receive type suggestions from model server
 			var params = {input_string:JSON.stringify(tokens), word_index: word_index};
-
-
 			const fetch = require('node-fetch');
 			const response = await fetch('http://localhost:5000/suggest-types?' 
 				+ new URLSearchParams(params).toString());
