@@ -1,9 +1,15 @@
 // See https://go.microsoft.com/fwlink/?LinkId=733558
 // for the documentation about the tasks.json format
+
+// note: any background/watch tasks used in dependsOn with "dependsOrder": "sequence" 
+// must have a problem matcher that tracks when they are "done". So, "Start Suggestion Server"
+// has a bare-bones problem matcher to indicate begin/end patterns.
+
 {
 	"version": "2.0.0",
 	"tasks": [
 		{
+			"label": "Watch",
 			"type": "npm",
 			"script": "watch",
 			"problemMatcher": "$tsc-watch",
@@ -11,6 +17,35 @@
 			"presentation": {
 				"reveal": "never"
 			},
+			"group": {
+				"kind": "build"
+			}
+		},
+		{
+			"label": "Start Suggestion Server",
+			"type": "npm",
+			"script": "start-suggestion-server",
+			"isBackground": true,
+			"problemMatcher": {
+				"pattern": {
+				"regexp": "",
+				},
+				"background": {
+				  "activeOnStart": true,
+				  "beginsPattern": "\\* Environment\\: production",
+				  "endsPattern":"\\* Running on http://127\\.0\\.0\\.1:5000 \\(Press CTRL\\+C to quit\\)"
+				}
+			},
+			"presentation": {
+				"reveal": "never"
+			},
+			"group": {
+				"kind": "build"
+			}
+		},
+		{
+			"label": "Build",
+			"dependsOn": ["Watch", "Start Suggestion Server"],
 			"group": {
 				"kind": "build",
 				"isDefault": true
