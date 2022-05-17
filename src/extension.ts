@@ -3,6 +3,7 @@ import * as ts from 'typescript';
 
 var wordStart: any;
 var editorDocument: vscode.TextDocument;
+
 //Create output channel
 var typeSuggestions = ["Type1", "Type2", "Type3", "Type4", "Type5"]; // init placeholders, updated later
 var complete_list_of_types = [];
@@ -154,7 +155,6 @@ function parseType(node: ts.TypeNode) {
 }
 
 
-
 function incrementalCompile(dir:string): any {
 	console.log("doing inc compile");
 	const configPath = ts.findConfigFile(dir,
@@ -172,11 +172,9 @@ function incrementalCompile(dir:string): any {
 		});
 		return project;
 	}else {
-		// add vscode popup, gracefully
-		throw new Error("Could not find a valid 'tsconfig.json'.");
-		// print("CONFIG ERROR") ---> make vscode error popup
+		vscode.window.showErrorMessage("Could not find a valid 'tsconfig.json' file in project.");
+		throw new Error("Could not find a valid 'tsconfig.json' in project.");
 		// options = {noEmitOnError: true,target: ts.ScriptTarget.ES5,module: ts.ModuleKind.CommonJS, incremental: true}
-		
 		// let result = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS }});
 	}
 }
@@ -197,7 +195,7 @@ function fast_linter(checker: ts.TypeChecker, sourceFile:ts.SourceFile, loc, wor
 				let symbol = checker.getSymbolAtLocation(node['name']);
 				if (symbol) {
 					const ty = checker.getTypeAtLocation(node);
-					const n = checker.typeToTypeNode(ty, undefined, undefined); //not sure why this says error on vscode...
+					const n = checker.typeToTypeNode(ty, undefined, undefined);
 					typeCache = parseType(n);
 				}
 			}
@@ -219,22 +217,21 @@ function fast_linter(checker: ts.TypeChecker, sourceFile:ts.SourceFile, loc, wor
 async function getTypeSuggestions() {
 
 	// hello message
-	vscode.window.showInformationMessage("Hello from TypeScript Suggestions!");
+	vscode.window.showInformationMessage("Hello from FlexType!");
 
 	// verify that file is open in editor, get associated TextDocument
 	const editor = vscode.window.activeTextEditor;
 	if(editor === undefined) {
-		vscode.window.showErrorMessage("Cannot suggest types without an open file.");
+		vscode.window.showErrorMessage("Cannot provide type suggestions without an open file.");
 		return;
 	}
 	editorDocument = editor.document;
 
 	// create hover
-	vscode.languages.registerHoverProvider('typescript', {
+	vscode.languages.registerHoverProvider([{ scheme: 'file', language: 'typescript'}, { scheme: 'file', language: 'javascript'}], { // todo: javascript functionality
 		provideHover: async (document, position) => {
 			// not necessary if we want pass source to typescript compiler this could be a todo;
 			// process would be: load source, load project files, delete current file from list of files, insert string as source, build
-			// not necessary if we want pass source to typescript compiler
 			word_of_interest = document.getText(document.getWordRangeAtPosition(position));
 			wordStart = document.getWordRangeAtPosition(position)?.start;
 
@@ -386,4 +383,6 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 // called when extension is deactivated
-export function deactivate() {}
+export function deactivate() {
+	// kill server?
+}

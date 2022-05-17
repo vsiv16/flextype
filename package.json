@@ -1,14 +1,18 @@
 {
   "name": "typescriptsuggestions",
-  "displayName": "TypeScript Suggestions",
-  "description": "",
+  "displayName": "FlexType",
+  "description": "Machine-learning based type inference and automatic annotation for TypeScript.",
   "version": "0.0.1",
+  "publisher": "UC Davis",
   "engines": {
     "vscode": "^1.66.0"
   },
-  "categories": [
-    "Other"
-  ],
+  "categories": ["Programming Languages", "Other"],
+  "icon": "images/FlexTypeLogoSquare.png",
+  "galleryBanner": {
+    "color": "#8393ca",
+    "theme": "dark"
+  },
   "activationEvents": [
     "onCommand:typescriptsuggestions.suggest-types"
   ],
@@ -17,11 +21,11 @@
     "commands": [
       {
         "command": "typescriptsuggestions.suggest-types",
-        "title": "TypeScript Suggestions: Suggest Types"
+        "title": "FlexType: Suggest Types"
       },
       {
         "command": "typescriptsuggestions.insert-type",
-        "title": "TypeScript Suggestions: Insert Type"
+        "title": "FlexType: Insert Type"
       }
     ],
     "menus": {
@@ -89,5 +93,10 @@
   "dependencies": {
     "@angular/cli": "^13.3.5",
     "node-fetch": "^2.6.7"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vsiv16/typescriptsuggestions"
+  },
+  "homepage": "https://github.com/vsiv16/typescriptsuggestions/blob/master/README.md"
 }
