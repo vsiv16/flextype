@@ -67,6 +67,3 @@ def suggest_types_single_token():
     json_string = json.dumps(data, indent=4)
     print(json_string)
     return json_string
-
-# if __name__ == '__main__':
-#     app.run(threaded=False)

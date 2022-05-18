@@ -1,70 +1,47 @@
-# typescriptsuggestions README
+# FlexType VS Code Extension
 
-This is the README for your extension "typescriptsuggestions". After writing up a brief description, we recommend including the following sections.
+<!-- to do: add shield + marketplace link -->
+
+FlexType provides static and machine-learning based type inference, as well as automatic type annotation for developers to use with TypeScript codebases.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+* Both static and machine-learning based type inference *(powered by the TypeScript compiler's type checker and [ManyTypes4TypeScript](https://huggingface.co/kevinjesse/codebert-MT4TS>))*
+* Type recommendations and automatic embedding of formal type annotations for type permissive locations *(i.e. variables, parameters, functions, methods)*
+* Support for both TypeScript and JavaScript:
+    * Type recommendations available for both TypeScript (.ts) and JavaScript (.js) files
+    * Automatic type annotation available for TypeScript files
+* Easy-to-use extension interface  
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+Use the following command to install required Python libraries for this extension:
 
-## Extension Settings
+`python -m pip install -r requirements.txt`
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+## Installation
 
-For example:
+The extension can be installed from the Visual Studio Marketplace.
+<!-- to do: add marketplace link -->
 
-This extension contributes the following settings:
+## Usage
+Once the FlexType extension and required dependencies are installed, follow the instructions below to start using the extension.
 
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+1. In the VS Code editor, open a TypeScript or JavaScript project and select a specific source file of choice (.ts or .js)
+2. Open the Command Palette (using `View > Command Palette` or the appropriate keyboard shortcut)
+3. Select the command `FlexType: Suggest Types` to activate the extension
+4. Hover over a type permissive location in the source code to see a dialog with recommended types
+    > Hover Dialog Anatomy: ![](images/FlexTypeHoverAnatomy.png)
 
-## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+5. Use the corresponding keystrokes from the hover dialog to accept a type suggestion and prompt automatic annotation *(for Typescript files (.ts) only)*
+
+<!-- ## Known Issues
+
+Calling out known issues can help limit users opening duplicate issues against your extension. -->
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
-
 ### 1.0.0
 
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+Initial release of FlexType.
