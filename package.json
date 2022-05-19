@@ -9,6 +9,7 @@
   },
   "categories": [
     "Programming Languages",
+    "Machine Learning",
     "Other"
   ],
   "icon": "images/FlexTypeLogoSquare.png",
@@ -68,6 +69,11 @@
         "key": "Shift+5",
         "command": "typescriptsuggestions.insert-type",
         "args": 5
+      },
+      {
+        "key": "Shift+6",
+        "command": "typescriptsuggestions.insert-type",
+        "args": 6
       }
     ]
   },
@@ -82,7 +88,7 @@
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js",
-    "start-suggestion-server": "python3 -m flask run"
+    "start-suggestion-server": "python3 -m flask run -h localhost -p 3000"
   },
   "devDependencies": {
     "@types/glob": "^7.2.0",

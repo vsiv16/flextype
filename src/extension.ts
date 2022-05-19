@@ -259,7 +259,8 @@ async function getTypeSuggestions() {
 			// send http request, receive type suggestions from model server
 			var params = {input_string:JSON.stringify(tokens), word_index: word_index};
 			const fetch = require('node-fetch');
-			const response = await fetch('http://localhost:5000/suggest-types?' 
+			console.log("*** sending request to 3000");
+			const response = await fetch('http://localhost:3000/suggest-types?' 
 				+ new URLSearchParams(params).toString());
 			const data = await response.json();
 			console.log(data);

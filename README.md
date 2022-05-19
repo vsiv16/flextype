@@ -1,12 +1,12 @@
 # FlexType VS Code Extension
 
-<!-- to do: add shield + marketplace link -->
+<!-- to do: add shield w/ marketplace link -->
 
 FlexType provides static and machine-learning based type inference, as well as automatic type annotation for developers to use with TypeScript codebases.
 
 ## Features
 
-* Both static and machine-learning based type inference *(powered by the TypeScript compiler's type checker and [ManyTypes4TypeScript](https://huggingface.co/kevinjesse/codebert-MT4TS>))*
+* Both static and machine-learning based type inference *(powered by the TypeScript compiler's type checker and [ManyTypes4TypeScript](https://huggingface.co/kevinjesse/codebert-MT4TS))*
 * Type recommendations and automatic embedding of formal type annotations for type permissive locations *(i.e. variables, parameters, functions, methods)*
 * Support for both TypeScript and JavaScript:
     * Type recommendations available for both TypeScript (.ts) and JavaScript (.js) files
@@ -21,8 +21,7 @@ Use the following command to install required Python libraries for this extensio
 
 ## Installation
 
-The extension can be installed from the Visual Studio Marketplace.
-<!-- to do: add marketplace link -->
+The extension can be installed from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=ucdavis-decal.typescriptsuggestions).
 
 ## Usage
 Once the FlexType extension and required dependencies are installed, follow the instructions below to start using the extension.
