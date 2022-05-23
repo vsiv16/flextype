@@ -1,5 +1,5 @@
 {
-  "name": "typescriptsuggestions",
+  "name": "flextype",
   "displayName": "FlexType",
   "description": "Machine learning-based type inference and automatic type annotation for TypeScript.",
   "version": "0.0.1",
@@ -18,28 +18,28 @@
     "theme": "dark"
   },
   "activationEvents": [
-    "onCommand:typescriptsuggestions.suggest-types"
+    "onCommand:flextype.suggest-types"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "typescriptsuggestions.suggest-types",
+        "command": "flextype.suggest-types",
         "title": "FlexType: Suggest Types"
       },
       {
-        "command": "typescriptsuggestions.insert-type",
+        "command": "flextype.insert-type",
         "title": "FlexType: Insert Type"
       }
     ],
     "menus": {
       "commandPalette": [
         {
-          "command": "typescriptsuggestions.suggest-types",
+          "command": "flextype.suggest-types",
           "when": "myExtension.hideActivationCommand == false"
         },
         {
-          "command": "typescriptsuggestions.insert-type",
+          "command": "flextype.insert-type",
           "when": "false"
         }
       ]
@@ -47,35 +47,44 @@
     "keybindings": [
       {
         "key": "Shift+1",
-        "command": "typescriptsuggestions.insert-type",
+        "command": "flextype.insert-type",
         "args": 1
       },
       {
         "key": "Shift+2",
-        "command": "typescriptsuggestions.insert-type",
+        "command": "flextype.insert-type",
         "args": 2
       },
       {
         "key": "Shift+3",
-        "command": "typescriptsuggestions.insert-type",
+        "command": "flextype.insert-type",
         "args": 3
       },
       {
         "key": "Shift+4",
-        "command": "typescriptsuggestions.insert-type",
+        "command": "flextype.insert-type",
         "args": 4
       },
       {
         "key": "Shift+5",
-        "command": "typescriptsuggestions.insert-type",
+        "command": "flextype.insert-type",
         "args": 5
       },
       {
         "key": "Shift+6",
-        "command": "typescriptsuggestions.insert-type",
+        "command": "flextype.insert-type",
         "args": 6
       }
-    ]
+    ],
+    "terminal": {
+			"profiles": [
+				{
+					"id": "flextype.server-terminal-profile",
+					"icon": "terminal",
+					"title": "Server Terminal Profile"
+				}
+			]
+		}
   },
   "scripts": {
     "vscode:prepublish": "npm run compile && npm run esbuild-base -- --minify",
@@ -88,7 +97,7 @@
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js",
-    "start-suggestion-server": "python3 -m flask run -h localhost -p 3000"
+    "start-suggestion-server": "python3 -m flask run -h localhost -p 8585"
   },
   "devDependencies": {
     "@types/glob": "^7.2.0",
