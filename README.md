@@ -21,7 +21,7 @@ Use the following command to install required Python libraries for this extensio
 
 ## Installation
 
-The extension can be installed from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=ucdavis-decal.typescriptsuggestions).
+The extension can be installed from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=ucdavis-decal.flextype).
 
 ## Usage
 Once the FlexType extension and required dependencies are installed, follow the instructions below to start using the extension.
