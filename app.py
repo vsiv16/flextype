@@ -6,11 +6,13 @@ import json
 # create flask app
 app = Flask(__name__)
 
+print("FlexType: Starting Type Suggestion Server...")
+
 # SETUP: load label list from file, model, tokenizer from HuggingFace
 types_file = open("vocab_50k.txt", "r")
 label_list = types_file.read().splitlines()
-model = AutoModelForTokenClassification.from_pretrained('kevinjesse/codebert-MT4TS', num_labels=len(label_list))
-tokenizer = AutoTokenizer.from_pretrained('microsoft/codebert-base', fast=True, add_prefix_space=True )
+model = AutoModelForTokenClassification.from_pretrained('kevinjesse/graphcodebert-MT4TS', num_labels=len(label_list))
+tokenizer = AutoTokenizer.from_pretrained('microsoft/graphcodebert-base', fast=True, add_prefix_space=True )
 
 # give type suggestions for a single 'word' contained in a snippet of code
 @app.route('/suggest-types')
