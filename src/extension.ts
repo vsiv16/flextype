@@ -236,6 +236,9 @@ async function getTypeSuggestions() {
     // create hover
     vscode.languages.registerHoverProvider([{ scheme: 'file', language: 'typescript' }, { scheme: 'file', language: 'javascript' }], {
         provideHover: async (document, position) => {
+
+
+            
             // not necessary if we want pass source to typescript compiler this could be a todo;
             // process would be: load source, load project files, delete current file from list of files, insert string as source, build
             word_of_interest = document.getText(document.getWordRangeAtPosition(position));
@@ -258,6 +261,8 @@ async function getTypeSuggestions() {
             console.log("INFERRED TYPE: " + inferred_type);
             var word_index = tokens_and_inferred[2];
             console.log("WORD INDEX:" + word_index);
+            if (inferred_type && word_index) {
+                
             // var in_str = editorDocument.lineAt(position).text; // passing in current line as input for now -- kevin we don't need this now that we have tokens!
             // send http request, receive type suggestions from model server
             var params = { input_string: JSON.stringify(tokens), word_index: word_index };
@@ -265,8 +270,10 @@ async function getTypeSuggestions() {
             console.log("*** sending request to ", PORT_NUM);
             // const response = () => import('node-fetch').then(({default: fetch}) => fetch('http://localhost:3000/suggest-types?'
             // + new URLSearchParams(params).toString()));
-            const fetch = require('node-fetch');
-            const response = await fetch('http://localhost:'+ PORT_NUM +'/suggest-types?' + new URLSearchParams(params).toString());
+            const response = await fetch('http://localhost:'+ PORT_NUM +'/suggest-types?',
+            {method: 'POST', body: JSON.stringify(params), headers: { 'Content-Type': 'application/json' }});
+            // const response = await fetch('http://localhost:'+ PORT_NUM +'/suggest-types?',
+            //     + new URLSearchParams(params).toString());
             const data = await response.json();
             console.log(data);
             typeSuggestions = data.type_suggestions;
@@ -296,6 +303,9 @@ async function getTypeSuggestions() {
             }
             // display type suggestions and acceptance keystrokes in hover
             return new vscode.Hover(markdownTypes);
+            }else{
+                return new vscode.Hover(['Loading Type Suggestions...']);;
+            }
         }
     });
 }

@@ -15,14 +15,24 @@ model = AutoModelForTokenClassification.from_pretrained('kevinjesse/graphcodeber
 tokenizer = AutoTokenizer.from_pretrained('microsoft/graphcodebert-base', fast=True, add_prefix_space=True )
 
 # give type suggestions for a single 'word' contained in a snippet of code
-@app.route('/suggest-types')
+@app.route('/suggest-types', methods=['POST'])
 def suggest_types_single_token():
-
-    input_string = request.args.get('input_string') ## this is now a list -- kevin
-    input_list  = json.loads(input_string) #list or string can be passed, string avoids json decoding errors
-
-    curr_word_index = int(request.args.get('word_index')) # index of first char of word of interest
+    data_json = request.json
+    # input_string = request.args.get('input_string') ## this is now a list -- kevin
+    # input_list  = json.loads(input_string) #list or string can be passed, string avoids json decoding errors
+    # curr_word_index = int(request.args.get('word_index')) # index of first char of word of interest
     
+    input_string = data_json['input_string'] ## this is now a list -- kevin
+    if isinstance(input_string, str):
+        input_list  = json.loads(input_string) #list or string can be passed, string avoids json decoding errors
+
+    else:
+        input_list = input_string
+
+    #sometimes this is an error. very odd.
+    curr_word_index = int(data_json['word_index']) # index of first char of word of interest
+    
+
     ##### tokenize input
     tokenized_inputs = tokenizer(input_list, add_special_tokens=False, return_tensors="pt", is_split_into_words=True)
 
