@@ -46,32 +46,32 @@
     },
     "keybindings": [
       {
-        "key": "Shift+1",
+        "key": "Ctrl+Alt+1",
         "command": "flextype.insert-type",
         "args": 1
       },
       {
-        "key": "Shift+2",
+        "key": "Ctrl+Alt+2",
         "command": "flextype.insert-type",
         "args": 2
       },
       {
-        "key": "Shift+3",
+        "key": "Ctrl+Alt+3",
         "command": "flextype.insert-type",
         "args": 3
       },
       {
-        "key": "Shift+4",
+        "key": "Ctrl+Alt+4",
         "command": "flextype.insert-type",
         "args": 4
       },
       {
-        "key": "Shift+5",
+        "key": "Ctrl+Alt+5",
         "command": "flextype.insert-type",
         "args": 5
       },
       {
-        "key": "Shift+6",
+        "key": "Ctrl+Alt+6",
         "command": "flextype.insert-type",
         "args": 6
       }

@@ -2,9 +2,11 @@ import * as vscode from 'vscode';
 // import * as ts from 'byots';
 // import ts = require('byots');
 import ts = require('typescript');
-import fetch = require('node-fetch');
+
+// import fetch = require('node-fetch');
 // import fetch from 'node-fetch';
-var PORT_NUM = 8585;
+
+var PORT_NUM = 9090;
 var wordStart: any;
 var editorDocument: vscode.TextDocument;
 //Create output channel
@@ -259,11 +261,12 @@ async function getTypeSuggestions() {
             // var in_str = editorDocument.lineAt(position).text; // passing in current line as input for now -- kevin we don't need this now that we have tokens!
             // send http request, receive type suggestions from model server
             var params = { input_string: JSON.stringify(tokens), word_index: word_index };
+
             console.log("*** sending request to ", PORT_NUM);
             // const response = () => import('node-fetch').then(({default: fetch}) => fetch('http://localhost:3000/suggest-types?'
             // + new URLSearchParams(params).toString()));
-            const response = await fetch('http://localhost:'+ PORT_NUM +'/suggest-types?'
-                + new URLSearchParams(params).toString());
+            const fetch = require('node-fetch');
+            const response = await fetch('http://localhost:'+ PORT_NUM +'/suggest-types?' + new URLSearchParams(params).toString());
             const data = await response.json();
             console.log(data);
             typeSuggestions = data.type_suggestions;
@@ -283,13 +286,13 @@ async function getTypeSuggestions() {
             var list_offset = 0;
             if (inferred_type !== undefined) {
                 markdownTypes.appendMarkdown('***Inferred Types:***\n\n');
-                markdownTypes.appendMarkdown('**' + inferred_type + '** ............press \`Shift\`+\`' + (1) + '\` to accept*\n\n');
+                markdownTypes.appendMarkdown('**' + inferred_type + '** ............press \`Ctrl\`+ \`Alt\`+\`' + (1) + '\` to accept*\n\n');
                 complete_list_of_types = [inferred_type].concat(typeSuggestions);
                 list_offset = 1;
             }
             markdownTypes.appendMarkdown('***Suggested Types:***\n\n');
             for (let i = 0; i < typeSuggestions.length; i++) {
-                markdownTypes.appendMarkdown('**' + typeSuggestions[i] + '** *(' + typeProbabilities[i] + ')............press \`Shift\`+\`' + (i + 1 + list_offset) + '\` to accept*\n\n');
+                markdownTypes.appendMarkdown('**' + typeSuggestions[i] + '** *(' + typeProbabilities[i] + ')............press \`Ctrl\`+ \`Alt\`+\`' + (i + 1 + list_offset) + '\` to accept*\n\n');
             }
             // display type suggestions and acceptance keystrokes in hover
             return new vscode.Hover(markdownTypes);
@@ -375,10 +378,13 @@ export function activate(context: vscode.ExtensionContext) {
             name: `FlexType: Type Suggestion Server`,
             // hideFromUser: true
         });
-	terminal.sendText("echo 'hey there'");
+	// terminal.sendText("echo 'hey there'");
     terminal.sendText("cd " + __dirname + "/..");
-    terminal.sendText("python3 -m flask run -h localhost -p 8585");
+    // terminal.sendText("python3 -m flask run -h localhost -p 8585");
+    terminal.sendText("uwsgi --http :9090 --wsgi-file app.py --callable app");
 
+    // todo: server progress bar?
+    
     // hello message
     vscode.window.showInformationMessage("Hello from FlexType!");
 
@@ -387,7 +393,6 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(vscode.commands.registerCommand('flextype.insert-type', insertType));
     // hide extension activation cmd from cmd palette (so can't be activated more than once)
     vscode.commands.executeCommand('setContext', 'myExtension.hideActivationCommand', true);
-
 }
 // called when extension is deactivated
 export function deactivate() {

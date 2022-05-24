@@ -21,31 +21,32 @@
 				"kind": "build"
 			}
 		},
-		{
-			"label": "Start Suggestion Server",
-			"type": "npm",
-			"script": "start-suggestion-server",
-			"isBackground": true,
-			"problemMatcher": {
-				"pattern": {
-				"regexp": "",
-				},
-				"background": {
-				  "activeOnStart": true,
-				  "beginsPattern": "\\* Environment\\: production",
-				  "endsPattern":"\\* Running on http://localhost:8585 \\(Press CTRL\\+C to quit\\)"
-				}
-			},
-			"presentation": {
-				"reveal": "always"
-			},
-			"group": {
-				"kind": "build"
-			}
-		},
+		// {
+		// 	"label": "Start Suggestion Server",
+		// 	"type": "npm",
+		// 	"script": "start-suggestion-server",
+		// 	"isBackground": true,
+		// 	"problemMatcher": {
+		// 		"pattern": {
+		// 		"regexp": "",
+		// 		},
+		// 		"background": {
+		// 		  "activeOnStart": true,
+		// 		  "beginsPattern": "\\* Environment\\: production",
+		// 		  "endsPattern":"\\* Running on http://localhost:8585 \\(Press CTRL\\+C to quit\\)"
+		// 		}
+		// 	},
+		// 	"presentation": {
+		// 		"reveal": "always"
+		// 	},
+		// 	"group": {
+		// 		"kind": "build"
+		// 	}
+		// },
 		{
 			"label": "Build",
-			"dependsOn": ["Watch", "Start Suggestion Server"],
+			// "dependsOn": ["Watch", "Start Suggestion Server"],
+			"dependsOn": ["Watch"],
 			"group": {
 				"kind": "build",
 				"isDefault": true
