@@ -1,5 +1,8 @@
 import * as vscode from 'vscode';
-import * as ts from 'typescript';
+// import * as ts from 'byots';
+// import ts = require('byots');
+import ts = require('typescript');
+import fetch = require('node-fetch');
 // import fetch from 'node-fetch';
 var PORT_NUM = 8585;
 var wordStart: any;
@@ -82,7 +85,7 @@ function parseEntityName(n: ts.EntityName): string {
 }
 function parseType(node: ts.TypeNode) {
     var type = undefined;
-    if (node.kind === ts.SyntaxKind.AnyKeyword || node.kind === ts.SyntaxKind.ThisKeyword) {
+    if (node.kind === ts.SyntaxKind.AnyKeyword) {
         return "any";
     }
     else if (ts.isTypeReferenceNode(node)) {
@@ -256,7 +259,6 @@ async function getTypeSuggestions() {
             // var in_str = editorDocument.lineAt(position).text; // passing in current line as input for now -- kevin we don't need this now that we have tokens!
             // send http request, receive type suggestions from model server
             var params = { input_string: JSON.stringify(tokens), word_index: word_index };
-            const fetch = require('node-fetch');
             console.log("*** sending request to ", PORT_NUM);
             // const response = () => import('node-fetch').then(({default: fetch}) => fetch('http://localhost:3000/suggest-types?'
             // + new URLSearchParams(params).toString()));
