@@ -7,6 +7,12 @@ import ts = require('typescript');
 // import fetch from 'node-fetch';
 
 var PORT_NUM = 9090;
+const terminal = vscode.window.createTerminal(
+    {
+        name: `FlexType: Type Suggestion Server`,
+        // hideFromUser: true
+    });
+    
 var wordStart: any;
 var editorDocument: vscode.TextDocument;
 //Create output channel
@@ -270,6 +276,7 @@ async function getTypeSuggestions() {
             console.log("*** sending request to ", PORT_NUM);
             // const response = () => import('node-fetch').then(({default: fetch}) => fetch('http://localhost:3000/suggest-types?'
             // + new URLSearchParams(params).toString()));
+            const fetch = require('node-fetch'); // for sv machine
             const response = await fetch('http://localhost:'+ PORT_NUM +'/suggest-types?',
             {method: 'POST', body: JSON.stringify(params), headers: { 'Content-Type': 'application/json' }});
             // const response = await fetch('http://localhost:'+ PORT_NUM +'/suggest-types?',
@@ -293,13 +300,13 @@ async function getTypeSuggestions() {
             var list_offset = 0;
             if (inferred_type !== undefined) {
                 markdownTypes.appendMarkdown('***Inferred Types:***\n\n');
-                markdownTypes.appendMarkdown('**' + inferred_type + '** ............press \`Ctrl\`+ \`Alt\`+\`' + (1) + '\` to accept*\n\n');
+                markdownTypes.appendMarkdown('**' + inferred_type + '** ............press \`Alt\`+\`' + (1) + '\` to accept*\n\n');
                 complete_list_of_types = [inferred_type].concat(typeSuggestions);
                 list_offset = 1;
             }
             markdownTypes.appendMarkdown('***Suggested Types:***\n\n');
             for (let i = 0; i < typeSuggestions.length; i++) {
-                markdownTypes.appendMarkdown('**' + typeSuggestions[i] + '** *(' + typeProbabilities[i] + ')............press \`Ctrl\`+ \`Alt\`+\`' + (i + 1 + list_offset) + '\` to accept*\n\n');
+                markdownTypes.appendMarkdown('**' + typeSuggestions[i] + '** *(' + typeProbabilities[i] + ')............press \`Alt\`+\`' + (i + 1 + list_offset) + '\` to accept*\n\n');
             }
             // display type suggestions and acceptance keystrokes in hover
             return new vscode.Hover(markdownTypes);
@@ -383,12 +390,6 @@ export function activate(context: vscode.ExtensionContext) {
     // start suggestion server
     console.log(__dirname);
 
-    const terminal = vscode.window.createTerminal(
-        {
-            name: `FlexType: Type Suggestion Server`,
-            // hideFromUser: true
-        });
-	// terminal.sendText("echo 'hey there'");
     terminal.sendText("cd " + __dirname + "/..");
     // terminal.sendText("python3 -m flask run -h localhost -p 8585");
     terminal.sendText("uwsgi --http :9090 --wsgi-file app.py --callable app");
@@ -406,5 +407,6 @@ export function activate(context: vscode.ExtensionContext) {
 }
 // called when extension is deactivated
 export function deactivate() {
-    // kill server or let vscode do it automatically?
+    // kill server upon deactivation
+    terminal.sendText("pkill uwsgi");
 }
