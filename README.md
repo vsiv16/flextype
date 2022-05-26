@@ -1,4 +1,4 @@
-# FlexType VS Code Extension
+# FlexType VS Code Extension <img style="float: right; padding: 0px 0px 0px 0px;" src="images/FlexTypeLogo.png" width="100"/>
 
 <!-- to do: add shield w/ marketplace link -->
 
@@ -21,7 +21,7 @@ Use the following command to install required Python libraries for this extensio
 
 ## Installation
 
-The FlexType extension has been packaged as `flextype-0.0.1.vsix` and is included in this repository for download. For instructions on how to install the extension, please refer to [this guide](https://code.visualstudio.com/docs/editor/extension-marketplace#_install-from-a-vsix).
+The FlexType extension has been packaged as `flextype-0.0.1.vsix` and is included in this repository for download. For instructions on how to install the extension after downloading the vsix package, please refer to [this guide](https://code.visualstudio.com/docs/editor/extension-marketplace#_install-from-a-vsix).
 
 *FlexType will also be coming to the Visual Studio Marketplace soon!*
 <!-- [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=ucdavis-decal.flextype). -->
@@ -30,9 +30,9 @@ The FlexType extension has been packaged as `flextype-0.0.1.vsix` and is include
 Once the FlexType extension and required dependencies are installed, follow the instructions below to start using the extension.
 
 1. In the VS Code editor, open a TypeScript or JavaScript project and select a specific source file of choice (.ts or .js)
-2. Open the Command Palette (using `View > Command Palette` or the appropriate keyboard shortcut)
+2. Open the VS Code Command Palette (using `View > Command Palette` or the appropriate keyboard shortcut)
 3. Select the command `FlexType: Suggest Types` to activate the extension
-4. Hover over a type permissive location in the source code to see a dialog with recommended types
+4. Hover over a type permissive location in the source code to see a dialog with recommended types from FlexType
     <!-- > Hover Dialog Anatomy: ![](images/FlexTypeHoverAnatomy.png) -->
     *FlexType Hover Dialog Anatomy:* ![](images/FlexTypeHoverAnatomy.png)
 
