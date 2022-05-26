@@ -6,7 +6,7 @@ FlexType provides static and machine-learning based type inference, as well as a
 
 ## Features
 
-* Both static and machine-learning based type inference *(powered by the TypeScript compiler's type checker and [ManyTypes4TypeScript](https://huggingface.co/kevinjesse/codebert-MT4TS))*
+* Both static and machine-learning based type inference *(powered by the TypeScript compiler's type checker and [ManyTypes4TypeScript](https://huggingface.co/kevinjesse/graphcodebert-MT4TS))*
 * Type recommendations and automatic embedding of formal type annotations for type permissive locations *(i.e. variables, parameters, functions, methods)*
 * Support for both TypeScript and JavaScript:
     * Type recommendations available for both TypeScript (.ts) and JavaScript (.js) files
@@ -21,7 +21,10 @@ Use the following command to install required Python libraries for this extensio
 
 ## Installation
 
-The extension can be installed from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=ucdavis-decal.flextype).
+The FlexType extension has been packaged as `flextype-0.0.1.vsix` and is included in this repository for download. For instructions on how to install the extension, please refer to [this guide](https://code.visualstudio.com/docs/editor/extension-marketplace#_install-from-a-vsix).
+
+*FlexType will also be coming to the Visual Studio Marketplace soon!*
+<!-- [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=ucdavis-decal.flextype). -->
 
 ## Usage
 Once the FlexType extension and required dependencies are installed, follow the instructions below to start using the extension.
@@ -30,7 +33,8 @@ Once the FlexType extension and required dependencies are installed, follow the 
 2. Open the Command Palette (using `View > Command Palette` or the appropriate keyboard shortcut)
 3. Select the command `FlexType: Suggest Types` to activate the extension
 4. Hover over a type permissive location in the source code to see a dialog with recommended types
-    > Hover Dialog Anatomy: ![](images/FlexTypeHoverAnatomy.png)
+    <!-- > Hover Dialog Anatomy: ![](images/FlexTypeHoverAnatomy.png) -->
+    *FlexType Hover Dialog Anatomy:* ![](images/FlexTypeHoverAnatomy.png)
 
 
 5. Use the corresponding keystrokes from the hover dialog to accept a type suggestion and prompt automatic annotation *(for Typescript files (.ts) only)*

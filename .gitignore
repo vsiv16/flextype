@@ -2,7 +2,7 @@ out
 dist
 node_modules
 .vscode-test/
-*.vsix
+# *.vsix
 .DS_Store
 __pycache__/
 vsc-extension-quickstart.md
