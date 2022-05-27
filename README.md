@@ -1,4 +1,4 @@
-# FlexType VS Code Extension <img style="float: right; padding: 0px 0px 0px 0px;" src="images/FlexTypeLogo.png" width="100"/>
+# FlexType VS Code Extension <img style="float: right;" src="images/FlexTypeLogo.png" width="80"/>
 
 <!-- to do: add shield w/ marketplace link -->
 
