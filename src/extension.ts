@@ -243,8 +243,6 @@ async function getTypeSuggestions() {
     vscode.languages.registerHoverProvider([{ scheme: 'file', language: 'typescript' }, { scheme: 'file', language: 'javascript' }], {
         provideHover: async (document, position) => {
 
-
-            
             // not necessary if we want pass source to typescript compiler this could be a todo;
             // process would be: load source, load project files, delete current file from list of files, insert string as source, build
             word_of_interest = document.getText(document.getWordRangeAtPosition(position));
@@ -369,8 +367,13 @@ function insertType(typeNum: number) {
     console.log("** Type:", complete_list_of_types[typeNum - 1]);
     console.log("** Type Location:", document_position);
     console.log("** Type Word Location:", word_of_interest);
+
+    editorDocument = vscode.window.activeTextEditor.document; // reset to active editor doc (editor switch bug fix)
+
     vscode.window.showTextDocument(editorDocument).then((editor) => {
         editorDocument = editor.document;
+        // console.log("EDITOR DOC: ", editorDocument.fileName);
+        // console.log("ACTIVE EDITOR DOC: ", vscode.window.activeTextEditor.document.fileName);
         editor.edit(editBuilder => {
             editorDocument.save(); //save any changes the user might have made prior to insert
             var line_updated = insertTypeHelper(project, complete_list_of_types[typeNum - 1], document_position, word_of_interest);
